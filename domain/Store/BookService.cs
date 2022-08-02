@@ -19,6 +19,7 @@ namespace Store
         {
             if (Book.IsIsbn(query))
                 return bookRepository.GetAllByIsbn(query);
+
             return bookRepository.GetAllByTitleOrAuthor(query);
         }
     }

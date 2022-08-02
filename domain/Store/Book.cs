@@ -7,7 +7,7 @@ namespace Store
     {
         public int Id { get; }
 
-        public int Isbn { get; }
+        public string Isbn { get; }
 
         public string Author { get; }
 
@@ -16,7 +16,7 @@ namespace Store
         public Book(int id, string isbn, string author, string title)
         {
             Id = id;
-            Title = title;
+            Isbn = isbn;
             Author = author;
             Title = title;
         }
