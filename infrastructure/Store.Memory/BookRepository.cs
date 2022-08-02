@@ -40,6 +40,11 @@ namespace Store.Memory
                                        || book.Author.Contains(query))
                         .ToArray();
         }
+
+        public Book GetById(int id)
+        {
+            return books.Single(book => book.Id == id);
+        }
     }
 }
   
