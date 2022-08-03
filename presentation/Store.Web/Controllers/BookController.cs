@@ -15,7 +15,7 @@ namespace Store.Web.Controllers
             this.bookRepository = bookRepository;
         }
 
-        public IActionResult Index( int id)
+        public IActionResult Index(int id)
         {
             Book book = bookRepository.GetById(id);
 
