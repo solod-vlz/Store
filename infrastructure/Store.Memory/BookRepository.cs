@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Store.Memory
@@ -27,6 +28,12 @@ namespace Store.Memory
                 "make it more convenient and effective for many tasks than supposedly more powerful languages",
                 25.34m)
         };
+
+        public Book[] GetAllByIds(IEnumerable<int> bookIds)
+        {
+            return books.Where(book => bookIds.Contains(book.Id))
+                        .ToArray();
+        }
 
         public Book[] GetAllByIsbn(string isbn)
         {
