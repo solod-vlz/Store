@@ -19,17 +19,14 @@
                 @{
                     Cart cart;
 
-                    if (!Context.Session.TryGetCart(out cart))
-                        cart = new Cart();
-
-                    if (cart.Items.Count == 0)
+                    if (Context.Session.TryGetCart(out cart) && cart.TotalPrice > 0)
                     {
-                        @:Cart is empty
+                        <a href="@Url.Action("Index", "Order")">Books @cart.TotalCount with Amount @cart.TotalPrice</a>
                     }
 
                     else
                     {
-                        @:Books @cart.Items.Count with Amount @cart.Amount
+                        @:Cart is Empty
                     }
                 }
             </span>
