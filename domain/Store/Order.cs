@@ -8,7 +8,7 @@ namespace Store
     {
         public int Id { get; }
 
-        private List<OrderItem> items;
+        private readonly List<OrderItem> items;
 
         public IReadOnlyCollection<OrderItem> Items
         {

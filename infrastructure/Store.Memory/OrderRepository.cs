@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Store.Memory
 {
-    public class OrderRepository : IOrderRepositiry
+    public class OrderRepository : IOrderRepository
     {
         private readonly List<Order> orders = new List<Order>();
 
