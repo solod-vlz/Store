@@ -60,7 +60,7 @@ namespace Store.Tests
         {
             var order = new Order(1, new OrderItem[0]);
 
-            Assert.Throws<ArgumentNullException>(() => order.AddItem(null, 0));
+            Assert.Throws<ArgumentNullException>(() => order.AddOrUpdateItem(null, 0));
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace Store.Tests
 
             var newBookItem = oldBookItem;
 
-            order.AddItem(newBookItem, 1);
+            order.AddOrUpdateItem(newBookItem, 1);
 
             Assert.Equal(oldBookId, order.Items.Count);
             Assert.Equal(oldBookCount + 1, order.Items.ToArray()[0].Count);
@@ -100,7 +100,7 @@ namespace Store.Tests
 
             var newBookItem = new Book(newBookId, "ISBN 1234567890", "Author", "Title", "Description", 10m); ;
 
-            order.AddItem(newBookItem, newBookCount);
+            order.AddOrUpdateItem(newBookItem, newBookCount);
 
             Assert.Equal(2, order.Items.Count);
 
@@ -109,6 +109,61 @@ namespace Store.Tests
 
             Assert.Equal(newBookId, order.Items.ToArray()[1].BookId);
             Assert.Equal(newBookCount, order.Items.ToArray()[1].Count);
+        }
+
+        [Fact]
+        public void GetItem_WithExistingItem_ReturnsItem()
+        {
+            var order = new Order(1, new[]
+            {
+                new OrderItem(1, 2, 10m),
+                new OrderItem(2, 1, 100m),
+            });
+
+            var expected = order.Items.ToArray()[0];
+
+            var actual = order.GetItem(1);
+
+            Assert.Equal(expected, actual);
+            Assert.Equal(2, actual.Count);
+        }
+
+        [Fact]
+        public void GetItem_WithNotExistingValue_ThrowBookException()
+        {
+            var order = new Order(1, new[]
+            {
+                new OrderItem(1, 2, 10m),
+                new OrderItem(2, 1, 100m),
+            });
+
+            Assert.Throws<InvalidOperationException>(() => order.GetItem(3));
+        }
+
+        [Fact]
+        public void RemoveItem_WithExistingItem_RemovesItem()
+        {
+            var order = new Order(1, new[]
+            {
+                new OrderItem(1, 2, 10m),
+                new OrderItem(2, 1, 100m),
+            });
+
+            order.RemoveItem(1);
+
+            Assert.Equal(1, order.Items.Count);
+        }
+
+        [Fact]
+        public void RemoveItem_WithNotExistingValue_ThrowBookException()
+        {
+            var order = new Order(1, new[]
+            {
+                new OrderItem(1, 2, 10m),
+                new OrderItem(2, 1, 100m),
+            });
+
+            Assert.Throws<InvalidOperationException>(() => order.RemoveItem(3));
         }
     }
 }
