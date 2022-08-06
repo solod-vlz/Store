@@ -1,11 +1,7 @@
 ﻿Build started...
-1>------ Build started: Project: Store, Configuration: Debug Any CPU ------
-1>Store -> D:\Programming\Store\domain\Store\bin\Debug\net5.0\Store.dll
-2>------ Build started: Project: Store.Memory, Configuration: Debug Any CPU ------
-3>------ Build started: Project: Store.Tests, Configuration: Debug Any CPU ------
-2>Store.Memory -> D:\Programming\Store\infrastructure\Store.Memory\bin\Debug\net5.0\Store.Memory.dll
-4>------ Build started: Project: Store.Web, Configuration: Debug Any CPU ------
-4>Store.Web -> D:\Programming\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.dll
-4>Store.Web -> D:\Programming\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.Views.dll
-3>Store.Tests -> D:\Programming\Store\domain\Store.Tests\bin\Debug\net5.0\Store.Tests.dll
-========== Build: 4 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+1>------ Build started: Project: Store.Memory, Configuration: Debug Any CPU ------
+1>Store.Memory -> D:\Programming\Store1\Store\infrastructure\Store.Memory\bin\Debug\net5.0\Store.Memory.dll
+2>------ Build started: Project: Store.Web, Configuration: Debug Any CPU ------
+2>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.dll
+2>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.Views.dll
+========== Build: 2 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========
