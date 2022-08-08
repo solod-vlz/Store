@@ -17,10 +17,10 @@
             <th scolpe="col"></th>
         </tr>
     </thead>
-
+    
     <tbody>
         @for (var i = 0; i < Model.Items.Length; i++)
-         {
+        {
             <tr>
                 <td class=" text-right">@(i + 1)</td>
                 <td>@Model.Items[i].Author</td>
@@ -29,12 +29,12 @@
                 <td class="text-right">@Model.Items[i].Price</td>
                 <td class="text-center">
                     <form class="form-inline" action="@Url.Action("RemoveItem", "Order")" method="post">
-                        <input type="hidden" name="bookId" value="@Model.Items[i].BookId"/>
+                        <input type="hidden" name="bookId" value="@Model.Items[i].BookId" />
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
-         }
+        }
     </tbody>
 
     <tfoot>
@@ -45,3 +45,16 @@
         </tr>
     </tfoot>
 </table>
+
+<form action="@Url.Action("SendConfirmationCode")" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="mobilePhone">Mobile phone</label>
+        <input type="text" class="form-control" name="mobilePhone" value="+79876543210" />
+        @if (Model.Errors.ContainsKey("mobilePhone"))
+        {
+            <small class="form-text text-danger">@Model.Errors["mobilePhone"]</small>
+        }
+    </div>
+    <button type="submit" class="btn btn-success">Отправить код</button>
+</form>
