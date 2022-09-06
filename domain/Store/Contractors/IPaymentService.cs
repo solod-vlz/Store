@@ -16,6 +16,6 @@ namespace Store.Contractors
 
         Form MoveNextForm(int orderId, int step, IReadOnlyDictionary<string, string> values);
 
-        OrderDelivery GetPayment(Form form);
+        OrderPayment GetPayment(Form form);
     }
 }

@@ -255,5 +255,37 @@ namespace Store.Web.Controllers
 
             return View("DeliveryStep", form);
         }
+
+
+        [HttpPost]
+        public IActionResult StartPayment(int id, string uniqueCode)
+        {
+            var paymentService = paymentServices.Single(service => service.UniqueCode == uniqueCode);
+
+            var order = orderRepository.GetById(id);
+
+            var form = paymentService.CreateForm(order);
+
+            return View("PaymentStep", form);
+        }
+
+        [HttpPost]
+        public IActionResult NextPayment(int id, string uniqueCode, int step, Dictionary<string, string> values)
+        {
+            var paymentService = paymentServices.Single(service => service.UniqueCode == uniqueCode);
+
+            var form = paymentService.MoveNextForm(id, step, values);
+
+            if (form.IsFinal)
+            {
+                var order = orderRepository.GetById(id);
+                order.Payment = paymentService.GetPayment(form);
+                orderRepository.Update(order);
+
+                return View("Finish");
+            }
+
+            return View("PaymentStep", form);
+        }
     }
 }

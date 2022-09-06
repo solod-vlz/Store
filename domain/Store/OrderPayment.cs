@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Store
 {
-    public class OrderPaiment
+    public class OrderPayment
     {
         public string UniqueCode { get; }
 
@@ -11,7 +11,7 @@ namespace Store
 
         public IReadOnlyDictionary<string, string> Parameters { get; }
 
-        public OrderPaiment(string uniqueCode,
+        public OrderPayment(string uniqueCode,
                              string description,
                              IReadOnlyDictionary<string, string> parameters)
         {

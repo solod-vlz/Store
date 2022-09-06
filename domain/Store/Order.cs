@@ -14,14 +14,15 @@ namespace Store
 
         public OrderDelivery Delivery { get; set; }
 
-        public OrderPaiment Paiment { get; set; }
+        public OrderPayment Payment { get; set; }
 
         public IReadOnlyCollection<OrderItem> Items => items;
 
         public int TotalCount => items.Sum(item => item.Count);
 
+        
         public decimal TotalPrice => items.Sum(item => item.Count * item.Price)
-                                     + Delivery?.Amount ?? 0m;
+                                     + (Delivery?.Amount ?? 0m);
 
         public Order(int id, IEnumerable<OrderItem> items)
         {
@@ -31,7 +32,8 @@ namespace Store
             Id = id;
 
             this.items = new List<OrderItem>(items);
-        }
+
+    }
 
         public void AddOrUpdateItem (Book book, int count)
         {
