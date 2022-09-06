@@ -199,7 +199,9 @@ namespace Store.Web.Controllers
                                 }
                             });
 
-            // TODO: save mobilephone
+            var order = orderRepository.GetById(id);
+            order.MobilePhone = mobilePhone;
+            orderRepository.Update(order);
 
             HttpContext.Session.Remove(mobilePhone);
    

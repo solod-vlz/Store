@@ -33,7 +33,7 @@ namespace Store
         private static void ThrowIfInvalidCount(int count)
         {
             if (count <= 0)
-                throw new ArgumentOutOfRangeException("Count must be greatre than zero.");
+                throw new ArgumentOutOfRangeException("Count must be greater than zero.");
         }
     }
 }
