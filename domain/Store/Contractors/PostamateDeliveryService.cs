@@ -67,7 +67,7 @@ namespace Store.Contractors
 
             var description = $"City: {cityName} /nPostamate: {postamateName}";
 
-            return new OrderDelivery(UniqueCode, description, parameters);
+            return new OrderDelivery(UniqueCode, description,150m, parameters);
         }
 
         public Form CreateForm(Order order)
