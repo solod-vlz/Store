@@ -44,6 +44,32 @@ namespace Store.Contractors
 
         public string Title => "Delivery to postamates in Moscow and St.Peterburg";
 
+        public OrderDelivery GetDelivery(Form form)
+        {
+            if (form.UniqueCode != UniqueCode || !form.IsFinal)
+                throw new InvalidOperationException("Invalid Form"); //TODO write tests
+
+            var cityId = form.Fields.Single(field => field.Name == "city")
+                                    .Value;
+            var cityName = cities[cityId];
+
+            var postamateId = form.Fields.Single(field => field.Name == "postamate")
+                                    .Value;
+            var postamateName = postamates[cityId][postamateId];
+
+            var parameters = new Dictionary<string, string>
+            {
+                {nameof(cityId), cityId },
+                {nameof(cityName), cityName },
+                {nameof(postamateId), postamateId },
+                {nameof(postamateName), postamateName },
+            };
+
+            var description = $"City: {cityName} /nPostamate: {postamateName}";
+
+            return new OrderDelivery(UniqueCode, description, parameters);
+        }
+
         public Form CreateForm(Order order)
         {
             if (order == null)
@@ -57,7 +83,7 @@ namespace Store.Contractors
             });
         }
 
-        public Form MoveNext(int orderId, int step, IReadOnlyDictionary<string, string> values)
+        public Form MoveNextForm(int orderId, int step, IReadOnlyDictionary<string, string> values)
         {
             if (step == 1)
             {
