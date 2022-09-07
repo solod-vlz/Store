@@ -43,7 +43,7 @@ namespace Store
             var index = items.FindIndex(item => item.BookId == book.Id);
 
             if (index == -1)
-                items.Add(new OrderItem(book.Id, count, book.Price));
+                items.Add(new OrderItem(book.Id, book.Price, count));
 
             else
                 items[index].Count += count;

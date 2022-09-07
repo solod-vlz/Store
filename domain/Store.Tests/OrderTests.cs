@@ -36,8 +36,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new List<OrderItem>()
             {
-                new OrderItem(1, 3, 10m),
-                new OrderItem(2, 5, 100m)
+                new OrderItem(1, 10m, 3),
+                new OrderItem(2, 100m, 5)
             });
 
             Assert.Equal(3 + 5, order.TotalCount);
@@ -48,8 +48,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new List<OrderItem>()
             {
-                new OrderItem(1, 3, 10m),
-                new OrderItem(2, 5, 100m)
+                new OrderItem(1, 10m, 3),
+                new OrderItem(2, 100m, 5)
             });
 
             Assert.Equal(3 * 10m + 5 * 100m, order.TotalPrice);
@@ -71,7 +71,7 @@ namespace Store.Tests
 
             var oldBookItem = new Book(oldBookId, "ISBN 1234567890", "Author", "Title", "Description", 10m);
 
-            var orderItems = new OrderItem[1] { new OrderItem(oldBookItem.Id, oldBookCount, oldBookItem.Price) };
+            var orderItems = new OrderItem[1] { new OrderItem(oldBookItem.Id, oldBookItem.Price, oldBookCount) };
 
             var order = new Order(1, orderItems);
 
@@ -91,7 +91,7 @@ namespace Store.Tests
 
             var oldBookItem = new Book(oldBookId, "ISBN 1234567890", "Author", "Title", "Description", 10m);
 
-            var orderItems = new OrderItem[1] { new OrderItem(oldBookItem.Id, oldBookCount, oldBookItem.Price) };
+            var orderItems = new OrderItem[1] { new OrderItem(oldBookItem.Id, oldBookItem.Price, oldBookCount) };
 
             var order = new Order(1, orderItems);
 
@@ -116,8 +116,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1, 2, 10m),
-                new OrderItem(2, 1, 100m),
+                new OrderItem(1, 10m, 2),
+                new OrderItem(2, 100m, 1),
             });
 
             var expected = order.Items.ToArray()[0];
@@ -133,8 +133,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1, 2, 10m),
-                new OrderItem(2, 1, 100m),
+                new OrderItem(1, 10m, 2),
+                new OrderItem(2, 100m, 1),
             });
 
             Assert.Throws<InvalidOperationException>(() => order.GetItem(3));
@@ -145,8 +145,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1, 2, 10m),
-                new OrderItem(2, 1, 100m),
+                new OrderItem(1, 10m, 2),
+                new OrderItem(2, 100m, 1),
             });
 
             order.RemoveItem(1);
@@ -159,8 +159,8 @@ namespace Store.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1, 2, 10m),
-                new OrderItem(2, 1, 100m),
+                new OrderItem(1, 10m, 2),
+                new OrderItem(2, 100m, 1),
             });
 
             Assert.Throws<InvalidOperationException>(() => order.RemoveItem(3));
