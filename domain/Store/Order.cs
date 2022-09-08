@@ -8,7 +8,7 @@ namespace Store
     {
         public int Id { get; }
 
-        private readonly List<OrderItem> items;
+        public OrderItemCollection Items { get; }
 
         public string MobilePhone { get; set; }
 
@@ -16,66 +16,15 @@ namespace Store
 
         public OrderPayment Payment { get; set; }
 
-        public IReadOnlyCollection<OrderItem> Items => items;
+        public int TotalCount => Items.Sum(item => item.Count);
 
-        public int TotalCount => items.Sum(item => item.Count);
-
-        
-        public decimal TotalPrice => items.Sum(item => item.Count * item.Price)
+        public decimal TotalPrice => Items.Sum(item => item.Count * item.Price)
                                      + (Delivery?.Amount ?? 0m);
 
         public Order(int id, IEnumerable<OrderItem> items)
         {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
-
             Id = id;
-
-            this.items = new List<OrderItem>(items);
-
-    }
-
-        public void AddOrUpdateItem (Book book, int count)
-        {
-            if (book == null)
-                throw new ArgumentNullException(nameof(book));
-
-            var index = items.FindIndex(item => item.BookId == book.Id);
-
-            if (index == -1)
-                items.Add(new OrderItem(book.Id, book.Price, count));
-
-            else
-                items[index].Count += count;
-        }
-
-        public OrderItem GetItem (int bookId)
-        {
-            int index = items.FindIndex(item => item.BookId == bookId);
-
-            if (index == -1)
-                ThrowBookException("Book not found", bookId);
-
-            return items[index];
-        }
-
-        public void RemoveItem(int bookId)
-        {
-            var index = items.FindIndex(item => item.BookId == bookId);
-
-            if (index == -1)
-                ThrowBookException("Order dosn`t contain specified item.", bookId);
-
-            items.RemoveAt(index);
-        }
-
-        private void ThrowBookException (string message, int bookId)
-        {
-            var exception = new InvalidOperationException(message);
-
-            exception.Data["Id"] = bookId;
-
-            throw exception;
+            Items = new OrderItemCollection(items);
         }
     }
 }
