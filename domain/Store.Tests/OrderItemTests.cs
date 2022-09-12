@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Store.Data;
+using System;
 using Xunit;
 
 namespace Store.Tests
 {
     public class OrderItemTests
     {
-        
-        public void OrderItem_TestUncorrectCountValue(int value)
+        void OrderItem_TestUncorrectCountValue(int value)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                new OrderItem(0, value, 0m);
+                var orderItemDto = OrderItem.DtoFactory.Create(new OrderDto(), 1, 10m, value);
+                var orderItem = OrderItem.Mapper.Map(orderItemDto);
             });
         }
         
@@ -29,7 +30,8 @@ namespace Store.Tests
         [Fact]
         public void OrderItem_WithPositiveCount_SetsCount()
         {
-            var orderItem = new OrderItem(1, 2, 3m);
+            var orderItemDto = OrderItem.DtoFactory.Create(new OrderDto(), 1, 3m, 2);
+            var orderItem = OrderItem.Mapper.Map(orderItemDto);
 
             Assert.Equal(1, orderItem.BookId);
             Assert.Equal(2, orderItem.Count);
@@ -39,7 +41,8 @@ namespace Store.Tests
         [Fact]
         public void SetCount_WithNegativeValue_ThrowArgumentOutOfRangeException()
         {
-            var orderItem = new OrderItem(1, 1, 0m);
+            var orderItemDto = OrderItem.DtoFactory.Create(new OrderDto(), 1, 0m, 1);
+            var orderItem = OrderItem.Mapper.Map(orderItemDto);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => orderItem.Count = -1);
         }
@@ -47,7 +50,8 @@ namespace Store.Tests
         [Fact]
         public void SetCount_WithZeroValue_ThrowArgumentOutOfRangeException()
         {
-            var orderItem = new OrderItem(1, 1, 0m);
+            var orderItemDto = OrderItem.DtoFactory.Create(new OrderDto(), 1, 0m, 1);
+            var orderItem = OrderItem.Mapper.Map(orderItemDto);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => orderItem.Count = 0);
         }
@@ -55,13 +59,12 @@ namespace Store.Tests
         [Fact]
         public void SetCount_WithPositiveValue_SetsValue()
         {
-            var orderItem = new OrderItem(1, 1, 0m);
+            var orderItemDto = OrderItem.DtoFactory.Create(new OrderDto(), 1, 0m, 1);
+            var orderItem = OrderItem.Mapper.Map(orderItemDto);
 
-            var actual = 3;
+            orderItem.Count = 3;
 
-            orderItem.Count = actual;
-
-            Assert.Equal(actual, orderItem.Count);
+            Assert.Equal(3, orderItem.Count);
 
         }
     }

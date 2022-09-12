@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,76 +7,88 @@ namespace Store
 {
     public class Order
     {
-        public int Id { get; }
+        private readonly OrderDto dto;
 
-        private readonly List<OrderItem> items;
+        public int Id => dto.Id;
 
-        public string MobilePhone { get; set; }
+        public OrderItemCollection Items { get; }
 
-        public OrderDelivery Delivery { get; set; }
-
-        public OrderPayment Payment { get; set; }
-
-        public IReadOnlyCollection<OrderItem> Items => items;
-
-        public int TotalCount => items.Sum(item => item.Count);
-
-        
-        public decimal TotalPrice => items.Sum(item => item.Count * item.Price)
-                                     + (Delivery?.Amount ?? 0m);
-
-        public Order(int id, IEnumerable<OrderItem> items)
+        public string MobilePhone
         {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
+            get => dto.MobilePhone;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentNullException(nameof(MobilePhone));
 
-            Id = id;
-
-            this.items = new List<OrderItem>(items);
-
-    }
-
-        public void AddOrUpdateItem (Book book, int count)
-        {
-            if (book == null)
-                throw new ArgumentNullException(nameof(book));
-
-            var index = items.FindIndex(item => item.BookId == book.Id);
-
-            if (index == -1)
-                items.Add(new OrderItem(book.Id, count, book.Price));
-
-            else
-                items[index].Count += count;
+                dto.MobilePhone = value;
+            }
         }
 
-        public OrderItem GetItem (int bookId)
+        public OrderDelivery Delivery
         {
-            int index = items.FindIndex(item => item.BookId == bookId);
+            get
+            {
+                if (dto.DeliveryUniqueCode == null)
+                    return null;
 
-            if (index == -1)
-                ThrowBookException("Book not found", bookId);
+                return new OrderDelivery(dto.DeliveryUniqueCode, dto.DeliveryDescription, dto.DeliveryPrice, dto.DeliveryParameters);
+            }
 
-            return items[index];
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException(nameof(Delivery));
+
+                dto.DeliveryUniqueCode = value.UniqueCode;
+                dto.DeliveryDescription = value.Description;
+                dto.DeliveryPrice = value.Price;
+                dto.DeliveryParameters = value.Parameters.ToDictionary(p => p.Key, p => p.Value);
+            }
         }
 
-        public void RemoveItem(int bookId)
+        public OrderPayment Payment
         {
-            var index = items.FindIndex(item => item.BookId == bookId);
+            get
+            {
+                if (dto.PaymentServiceName == null)
+                    return null;
 
-            if (index == -1)
-                ThrowBookException("Order dosn`t contain specified item.", bookId);
+                return new OrderPayment(dto.PaymentServiceName, dto.PaymentDescription, dto.PaymentParameters);
+            }
 
-            items.RemoveAt(index);
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException(nameof(Payment));
+
+                dto.PaymentServiceName = value.UniqueCode;
+                dto.PaymentDescription = value.Description;
+                dto.PaymentParameters = value.Parameters.ToDictionary(p => p.Key, p => p.Value);
+            }
         }
 
-        private void ThrowBookException (string message, int bookId)
+        public int TotalCount => Items.Sum(item => item.Count);
+
+        public decimal TotalPrice => Items.Sum(item => item.Count * item.Price)
+                                     + (Delivery?.Price ?? 0m);
+
+        internal Order(OrderDto dto)
         {
-            var exception = new InvalidOperationException(message);
+            this.dto = dto;
+            Items = new OrderItemCollection(dto);
+        }
 
-            exception.Data["Id"] = bookId;
+        public static class DtoFactory
+        {
+            public static OrderDto Create() => new OrderDto();
+        }
 
-            throw exception;
+        public static class Mapper
+        {
+            public static OrderDto Map(Order domain) => domain.dto;
+
+            public static Order Map(OrderDto dto) => new Order(dto);
         }
     }
 }
