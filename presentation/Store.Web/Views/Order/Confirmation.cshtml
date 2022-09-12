@@ -1,30 +1,41 @@
-﻿@model ConfirmationModel
+﻿@model OrderModel
 
 @{
     ViewData["Title"] = "Mobile phone confirmation";
 }
 
+<p>
+    Input <em>Confirmation code</em> из SMS.
+</p>
+
 <h1>Mobile phone confirmation</h1>
 
-<form action="@Url.Action("Confirmate")" method="post">
-    <input type="hidden" name="id" value="@Model.OrderId" />
+<form action="@Url.Action(nameof(OrderController.ConfirmMobilePhone))" method="post">
     <input type="hidden" name="mobilePhone" value="@Model.MobilePhone" />
     <div class="form-group">
-        <label for="code">Confirmation code</label>
-        <input type="text" class="form-control" name="code" placeholder="0000" />
-        @if (Model.Errors.ContainsKey("mobilePhone"))
+        <label for="confirmationCode">Confirmation code</label>
+        <input type="text" class="form-control" name="confirmationCode" placeholder="0000" />
+        @if (Model.Errors.ContainsKey("confirmationCode"))
         {
-            <small class="form-text text-danger">@Model.Errors["mobilePhone"]</small>
+            <small class="form-text text-danger">@Model.Errors["confirmationCode"]</small>
         }
     </div>
     <button type="submit" class="btn btn-success">Check</button>
 </form>
 
-<form action="@Url.Action("SendConfirmationCode")" method="post">
-    <input type="hidden" name="id" value="@Model.OrderId" />
+<p>
+    If you don`t recieve SMS with confirmation code durig minute, please check the corectness
+    of your mobilephone number, and try again.
+</p>
+
+<form action="@Url.Action("SendConfirmation")" method="post">
     <div class="form-group">
         <label for="mobilePhone">Mobile phone</label>
-        <input type="text" class="form-control" name="mobilePhone" value="@Model.MobilePhone"/>
+        <input type="text" class="form-control" name="mobilePhone" value="@Model.MobilePhone" />
+        @if (Model.Errors.ContainsKey("mobilePhone"))
+        {
+            <small class="form-text text-danger">@Model.Errors["mobilePhone"]</small>
+        }
     </div>
     <button type="submit" class="btn btn-success">Repeat code</button>
 </form>

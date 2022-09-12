@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
+using Store.Web.App;
 using Store.Web.Contractors;
 using Store.YandexKassa;
 using System;
@@ -26,6 +27,7 @@ namespace Store.Web
         {
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
+            services.AddHttpContextAccessor();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
@@ -35,6 +37,7 @@ namespace Store.Web
             services.AddSingleton<IBookRepository, BookRepository>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<BookService>();
+            services.AddSingleton<OrderService>();
             services.AddSingleton<INotificationService, DebugNotificationService>();
             services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
             services.AddSingleton<IPaymentService, CashPaymentService>();
@@ -67,13 +70,13 @@ namespace Store.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapAreaControllerRoute(
-                    name:"yandexKassa",
-                    areaName:"YandexKassa",
-                    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
