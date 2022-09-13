@@ -96,29 +96,39 @@ namespace Store.Data.EF
                      new BookDto
                      {
                          Id = 1,
-                         Isbn = "ISBN0201038013",
+                         Isbn = "ISBN1231231332",
                          Author = "D. Knuth",
                          Title = "Art Of Programming, Vol. 1",
-                         Description = "This volume begins with basic programming concepts and techniques, then focuses more particularly on information structures-the representation of information inside a computer, the structural relationships between data elements and how to deal with them efficiently.",
-                         Price = 7.19m,
+                         Description = "The bible of all fundamental algorithms and the work that taught many of today's software developers most of what they know about computer programming.",
+                         Price = 69.68m,
                      },
                     new BookDto
                     {
                         Id = 2,
-                        Isbn = "ISBN0201485672",
+                        Isbn = "ISBN1231266666",
                         Author = "M. Fowler",
-                        Title = "Refactoring",
-                        Description = "As the application of object technology--particularly the Java programming language--has become commonplace, a new problem has emerged to confront the software development community.",
-                        Price = 12.45m,
+                        Title = "Refactoring: Improving the Design of Existing Code (2nd Edition)",
+                        Description = "A guide to refactoring, the process of changing a software system so that it does not alter" +
+                                      "the external behavior of the code yet improves its internal structure, for professional" +
+                                      "programmers.Early chapters cover general principles, rationales, examples, and testing." +
+                                      "The heart of the book is a catalog of refactorings, organized in chapters on composing" +
+                                      "methods, moving features between objects, organizing data, simplifying conditional" +
+                                      "expressions, and dealing with generalizations",
+
+                        Price = 40.01m,
                     },
                     new BookDto
                     {
                         Id = 3,
-                        Isbn = "ISBN0131101633",
-                        Author = "B. W. Kernighan, D. M. Ritchie",
+                        Isbn = "ISBN1231255555",
+                        Author = "B. Kernighan",
                         Title = "C Programming Language",
-                        Description = "Known as the bible of C, this classic bestseller introduces the C programming language and illustrates algorithms, data structures, and programming techniques.",
-                        Price = 14.98m,
+                        Description = "C is a general-purpose programming language which features economy of" +
+                                      "expression, modern control flow and data structures, and a rich set of operators." +
+                                      "C is not a \"very high level\" language, nor a \"big\" one, and is not specialized to" +
+                                      "any particular area of application. But its absence of restrictions and its generality " +
+                                      "make it more convenient and effective for many tasks than supposedly more powerful languages",
+                        Price = 25.34m,
                     });
             });
         }

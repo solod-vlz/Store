@@ -8,7 +8,7 @@ namespace Store.Data
 {
     public class BookDto
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Isbn { get; set; }
 
