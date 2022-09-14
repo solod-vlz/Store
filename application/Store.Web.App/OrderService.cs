@@ -115,6 +115,8 @@ namespace Store.Web.App
 
             else
                 order.Items.Add(bookId, book.Price, count);
+
+            orderRepository.Update(order);
         }
 
         public OrderModel UpdateBook(int bookId, int count)
