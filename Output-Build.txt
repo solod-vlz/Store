@@ -1,7 +1,16 @@
 ﻿Build started...
-1>------ Build started: Project: Store.Memory, Configuration: Debug Any CPU ------
-1>Store.Memory -> D:\Programming\Store1\Store\infrastructure\Store.Memory\bin\Debug\net5.0\Store.Memory.dll
-2>------ Build started: Project: Store.Web, Configuration: Debug Any CPU ------
-2>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.dll
-2>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.Views.dll
-========== Build: 2 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========
+1>------ Build started: Project: Store, Configuration: Debug Any CPU ------
+1>Store -> D:\Programming\Store1\Store\domain\Store\bin\Debug\net5.0\Store.dll
+2>------ Build started: Project: Store.YandexKassa, Configuration: Debug Any CPU ------
+3>------ Build started: Project: Store.Web.App, Configuration: Debug Any CPU ------
+4>------ Build started: Project: Store.Data.EF, Configuration: Debug Any CPU ------
+5>------ Build started: Project: Store.Tests, Configuration: Debug Any CPU ------
+2>Store.YandexKassa -> D:\Programming\Store1\Store\plugins\Store.YandexKassa\bin\Debug\net5.0\Store.YandexKassa.dll
+2>Store.YandexKassa -> D:\Programming\Store1\Store\plugins\Store.YandexKassa\bin\Debug\net5.0\Store.YandexKassa.Views.dll
+5>Store.Tests -> D:\Programming\Store1\Store\domain\Store.Tests\bin\Debug\net5.0\Store.Tests.dll
+3>Store.Web.App -> D:\Programming\Store1\Store\application\Store.Web.App\bin\Debug\net5.0\Store.Web.App.dll
+4>Store.Data.EF -> D:\Programming\Store1\Store\infrastructure\Store.Data.EF\bin\Debug\net5.0\Store.Data.EF.dll
+6>------ Build started: Project: Store.Web, Configuration: Debug Any CPU ------
+6>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.dll
+6>Store.Web -> D:\Programming\Store1\Store\presentation\Store.Web\bin\Debug\net5.0\Store.Web.Views.dll
+========== Build: 6 succeeded, 0 failed, 1 up-to-date, 0 skipped ==========

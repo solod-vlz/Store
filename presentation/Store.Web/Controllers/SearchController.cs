@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.Web.App;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Store.Web.Controllers
 {
@@ -12,9 +14,22 @@ namespace Store.Web.Controllers
             this.bookService = bookService;
         }
         
-        public IActionResult Index(string query)
+        //public IActionResult Index(string query)
+        //{
+        //    var books = query == null ? new BookModel[0]:bookService.GetAllByQuery(query);
+
+        //    return View(books);
+        //}
+
+        public async Task<IActionResult> Index(string query)
         {
-            var books = query == null ? new BookModel[0]:bookService.GetAllByQuery(query);
+            IReadOnlyCollection<BookModel> books;
+            
+            if (query == null)
+                books = new BookModel[0];
+
+            else
+                books = await bookService.GetAllByQueryAsync(query);
 
             return View(books);
         }
