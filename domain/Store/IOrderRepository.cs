@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Store
 {
@@ -13,5 +9,11 @@ namespace Store
         Order GetById(int id);
 
         void Update(Order order);
+
+        Task<Order> GetByIdAsync(int orderId);
+
+        Task<Order> CreateAsync();
+
+        Task UpdateAsync(Order order);
     }
 }

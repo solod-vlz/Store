@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Store.Messages
 {
     public interface INotificationService
     {
         void SendConfirmationCode(string mobilePhone, int code);
+
+        Task SendConfirmationCodeAsync(string mobilePhone, int confirmationCode);
+
         void StartProcess(Order order);
+
+        Task StartProcessAsync(Order order);
     }
+
 }
