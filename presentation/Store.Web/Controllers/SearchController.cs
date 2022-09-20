@@ -14,13 +14,6 @@ namespace Store.Web.Controllers
             this.bookService = bookService;
         }
         
-        //public IActionResult Index(string query)
-        //{
-        //    var books = query == null ? new BookModel[0]:bookService.GetAllByQuery(query);
-
-        //    return View(books);
-        //}
-
         public async Task<IActionResult> Index(string query)
         {
             IReadOnlyCollection<BookModel> books;

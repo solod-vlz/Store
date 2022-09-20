@@ -23,21 +23,6 @@ namespace Store.Web.App
                         .ToArray();
         }
 
-        public IReadOnlyCollection<BookModel> GetAllByQuery(string query)
-        {
-            var books = Book.IsIsbn(query)
-                        ? bookRepository.GetAllByIsbn(query)
-                        : bookRepository.GetAllByTitleOrAuthor(query);
-
-            return books.Select(Map)
-                        .ToArray();
-        }
-
-        public BookModel GetById(int id)
-        {
-            return Map(bookRepository.GetById(id));
-        }
-
         public async Task<BookModel> GetByIdAsync(int id)
         {
             return Map(await bookRepository.GetByIdAsync(id));

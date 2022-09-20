@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Store.Contractors;
 using Store.Web.App;
 using Store.Web.Contractors;
-using Store.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +28,6 @@ namespace Store.Web.Controllers
             this.webContractorServices = webContractorServices;
         }
 
-        //[HttpGet]
-        //public IActionResult Index() => orderService.TryGetModel(out OrderModel model)
-        //                                             ? View(model)
-        //                                             : View("Empty");
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -44,14 +37,6 @@ namespace Store.Web.Controllers
                             : View("Empty");
         }
 
-        //[HttpPost]
-        //public IActionResult AddItem(int bookId, int count = 1)
-        //{
-        //    orderService.AddBook(bookId, count);
-
-        //    return RedirectToAction("Index", "Book", new { id = bookId });
-        //}
-
         [HttpPost]
         public async Task<IActionResult> AddItem(int bookId, int count = 1)
         {
@@ -59,14 +44,6 @@ namespace Store.Web.Controllers
 
             return RedirectToAction("Index", "Book", new { id = bookId });
         }
-
-        //[HttpPost]
-        //public IActionResult UpdateItem(int bookId, int count)
-        //{
-        //    orderService.UpdateBook(bookId, count);
-
-        //    return RedirectToAction("Index", "Book", new { id = bookId });
-        //}
 
         [HttpPost]
         public async Task<IActionResult> UpdateItem(int bookId, int count)
@@ -76,14 +53,6 @@ namespace Store.Web.Controllers
             return RedirectToAction("Index", "Book", new { id = bookId });
         }
 
-        //[HttpPost]
-        //public IActionResult RemoveItem(int bookId)
-        //{
-        //    var model = orderService.RemoveBook(bookId);
-
-        //    return View("Index", model); 
-        //}
-
         [HttpPost]
         public async Task<IActionResult> RemoveItem(int bookId)
         {
@@ -92,15 +61,6 @@ namespace Store.Web.Controllers
             return View("Index", model);
         }
 
-        //[HttpPost]
-        //public IActionResult SendConfirmation(string mobilePhone)
-        //{
-        //    var model = orderService.SendConfirmation(mobilePhone);
-
-        //    return View("Confirmation", model);
-        //}
-
-
         [HttpPost]
         public async Task<IActionResult> SendConfirmation(string mobilePhone)
         {
@@ -108,20 +68,6 @@ namespace Store.Web.Controllers
 
             return View("Confirmation", model);
         }
-
-        //[HttpPost]
-        //public IActionResult ConfirmMobilePhone(string mobilePhone, int confirmationCode)
-        //{
-        //    var model = orderService.ConfirmMobilePhone(mobilePhone, confirmationCode);
-
-        //    if (model.Errors.Count > 0)
-        //        return View("Confirmation", model);
-
-        //    var deliveryMethods = deliveryServices.ToDictionary(service => service.Name,
-        //                                                        service => service.Title);
-
-        //    return View("DeliveryMethod", deliveryMethods);
-        //}
 
         [HttpPost]
         public async Task<IActionResult> ConfirmMobilePhone(string mobilePhone, int confirmationCode)
@@ -136,23 +82,6 @@ namespace Store.Web.Controllers
 
             return View("DeliveryMethod", deliveryMethods);
         }
-
-        //[HttpPost]
-        //public IActionResult StartDelivery(string serviceName)
-        //{
-        //    var deliveryService = deliveryServices.Single(service => service.Name == serviceName);
-        //    var order = orderService.GetOrder();
-        //    var form = deliveryService.FirstForm(order);
-
-        //    var webContractorService = webContractorServices.SingleOrDefault(service => service.Name == serviceName);
-        //    if (webContractorService == null)
-        //        return View("DeliveryStep", form);
-
-        //    var returnUri = GetReturnUri(nameof(NextDelivery));
-        //    var redirectUri = webContractorService.StartSession(form.Parameters, returnUri);
-
-        //    return Redirect(redirectUri.ToString());
-        //}
 
         [HttpPost]
         public async Task<IActionResult> StartDelivery(string serviceName)
@@ -184,24 +113,6 @@ namespace Store.Web.Controllers
             return builder.Uri;
         }
 
-        //[HttpPost]
-        //public IActionResult NextDelivery(string serviceName, int step, Dictionary<string, string> values)
-        //{
-        //    var deliveryService = deliveryServices.Single(service => service.Name == serviceName);
-
-        //    var form = deliveryService.NextForm(step, values);
-        //    if (!form.IsFinal)
-        //        return View("DeliveryStep", form);
-
-        //    var delivery = deliveryService.GetDelivery(form);
-        //    orderService.SetDelivery(delivery);
-
-        //    var paymentMethods = paymentServices.ToDictionary(service => service.Name,
-        //                                                      service => service.Title);
-
-        //    return View("PaymentMethod", paymentMethods);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> NextDelivery(string serviceName, int step, Dictionary<string, string> values)
         {
@@ -220,23 +131,6 @@ namespace Store.Web.Controllers
             return View("PaymentMethod", paymentMethods);
         }
 
-        //[HttpPost]
-        //public IActionResult StartPayment(string serviceName)
-        //{
-        //    var paymentService = paymentServices.Single(service => service.Name == serviceName);
-        //    var order = orderService.GetOrder();
-        //    var form = paymentService.FirstForm(order);
-
-        //    var webContractorService = webContractorServices.SingleOrDefault(service => service.Name == serviceName);
-        //    if (webContractorService == null)
-        //        return View("PaymentStep", form);
-
-        //    var returnUri = GetReturnUri(nameof(NextPayment));
-        //    var redirectUri = webContractorService.StartSession(form.Parameters, returnUri);
-
-        //    return Redirect(redirectUri.ToString());
-        //}
-
         [HttpPost]
         public async Task<IActionResult> StartPayment(string serviceName)
         {
@@ -253,21 +147,6 @@ namespace Store.Web.Controllers
 
             return Redirect(redirectUri.ToString());
         }
-
-        //[HttpPost]
-        //public IActionResult NextPayment(string serviceName, int step, Dictionary<string, string> values)
-        //{
-        //    var paymentService = paymentServices.Single(service => service.Name == serviceName);
-
-        //    var form = paymentService.NextForm(step, values);
-        //    if (!form.IsFinal)
-        //        return View("PaymentStep", form);
-
-        //    var payment = paymentService.GetPayment(form);
-        //    var model = orderService.SetPayment(payment);
-
-        //    return View("Finish", model);
-        //}
 
         [HttpPost]
         public async Task<IActionResult> NextPayment(string serviceName, int step, Dictionary<string, string> values)

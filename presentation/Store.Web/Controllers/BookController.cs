@@ -13,13 +13,6 @@ namespace Store.Web.Controllers
             this.bookService = bookService;
         }
 
-        //public IActionResult Index(int id)
-        //{
-        //    var model = bookService.GetById(id);
-
-        //    return View(model);
-        //}
-
         public async Task<IActionResult> Index(int id)
         {
             var model = await bookService.GetByIdAsync(id);
